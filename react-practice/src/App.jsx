@@ -1,18 +1,27 @@
+import { useState } from "react";
 
-function Students(props) {
-  return <h2>{props.name},age {props.age}</h2>
-}
 
 function App() {
-  return(
-    <div>
-    <Students name="sanita" age={22} />
-    <Students name="Karina" age={21} />
+  const [count, setCount] = useState(0);
 
+  function handleClick() {
+    setCount(count + 1);
+  }
+  function handleReset() {
+    setCount(0);
+  }
+  return (
+    <div>
+    <h1>{count}</h1>
+    <button onClick={handleClick}>Increase</button>
+    <button onClick={handleReset}>Reset</button>
 
     </div>
+
   );
 }
+
+
 
 
 export default App;
