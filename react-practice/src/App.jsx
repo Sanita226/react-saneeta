@@ -2,26 +2,28 @@ import { useState } from "react";
 
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [name, setName] = useState("");
 
-  function handleClick() {
-    setCount(count + 1);
+  function handleChange(event) {
+    setName(event.target.value);
   }
-  function handleReset() {
-    setCount(0);
+  function handleClear() {
+    setName("");
   }
+
   return (
     <div>
-    <h1>{count}</h1>
-    <button onClick={handleClick}>Increase</button>
-    <button onClick={handleReset}>Reset</button>
-
+      <h1>Enter your name</h1>
+      <input type="text" 
+      value={name}
+      onChange={handleChange}
+      
+      />
+      <button onClick={handleClear}> Clear Name</button>
+      <h1>{name}</h1>
+      
     </div>
-
   );
 }
-
-
-
 
 export default App;
