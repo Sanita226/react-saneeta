@@ -1,18 +1,20 @@
 
 function App() {
-  const skills = ["HTML", "CSS", "React", "Javascript"];
+  let products = [
+    {id: 1, name: "Monitor", price: 100},
+    {id: 2, name: "Keyboard", price: 1000}
+  ];
+
 
   return (
-    <div>
-      <h1>My Skills</h1>
 
-      <ul>
-        {skills.map((skill) => {
-          return <li key={skill}>{skill}</li>;
-        })}
-      </ul>
+    <div>
+      {products.filter((product) =>product.price> 500)
+      .map((product) =>(
+        <p key={product.id}>{product.name}- Rs.{product.price}</p>
+      ))}
+
     </div>
   );
 }
-export default App;
-  
+ export default App;
