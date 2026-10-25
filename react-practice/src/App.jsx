@@ -1,20 +1,31 @@
 
-function App() {
-  let products = [
-    {id: 1, name: "Monitor", price: 100},
-    {id: 2, name: "Keyboard", price: 1000}
-  ];
+import { useState } from "react"
 
 
-  return (
+function App(){
+   const products = ["Mouse", "Keyboard", "Monitor"];
 
-    <div>
-      {products.filter((product) =>product.price> 500)
-      .map((product) =>(
-        <p key={product.id}>{product.name}- Rs.{product.price}</p>
-      ))}
+   const [searchText, setSearchText] = useState("");
 
-    </div>
-  );
+
+   const filteredProducts = products.filter((product) =>
+  product.toLowerCase().includes(searchText.toLowerCase())
+);
+
+   return (
+    <>
+    <h1>My products</h1>
+    <input 
+    type="text"
+    placeholder="Search products..."
+    value={searchText}
+    onChange={(event) => setSearchText(event.target.value)}
+    />
+    {filteredProducts.map((product) => (
+      <p key={product}>{product}</p>
+    ))}
+    
+    </>
+   );
 }
- export default App;
+export default App;
