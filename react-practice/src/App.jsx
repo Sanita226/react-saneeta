@@ -1,31 +1,47 @@
 
 import { useState } from "react"
 
+function App() {
+  const [fruits, setFruits] = useState(["Apple", "Mango","Litchi"]);
 
-function App(){
-   const products = ["Mouse", "Keyboard", "Monitor"];
+  const [newFruit, setNewFruit] = useState("");
 
-   const [searchText, setSearchText] = useState("");
+  function handleAddFruit() {
+    if(newFruit.trim() !=="") {
+      setFruits([...fruits, newFruit]);
+      setNewFruit("");
+    }
+  }
 
-
-   const filteredProducts = products.filter((product) =>
-  product.toLowerCase().includes(searchText.toLowerCase())
-);
-
-   return (
-    <>
-    <h1>My products</h1>
-    <input 
-    type="text"
-    placeholder="Search products..."
-    value={searchText}
-    onChange={(event) => setSearchText(event.target.value)}
-    />
-    {filteredProducts.map((product) => (
-      <p key={product}>{product}</p>
-    ))}
+  function handleRemoveFruit(fruitRemove) {
+    setFruits(
+      fruits.filter((fruit) =>
+        fruit !== fruitRemove
+      )
+    );
     
+  }
+
+  return (
+    <>
+    <h1>My Fruits</h1>
+
+    <input
+    value={newFruit}
+    onChange={(event) => setNewFruit(event.target.value)}
+    placeholder="Enter a fruit..." 
+    />
+    <button onClick={handleAddFruit}>Add Fruit</button>
+   
+   
+
+    {fruits.map((fruit) => (
+      <div key={fruit}>
+        <p>{fruit}</p>
+        <button onClick={() => handleRemoveFruit(fruit)}>Remove</button>
+      </div>
+    ))}
     </>
-   );
+  );
 }
 export default App;
