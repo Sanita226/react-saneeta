@@ -1,47 +1,47 @@
+import { useState } from "react";
 
-import { useState } from "react"
+
 
 function App() {
-  const [fruits, setFruits] = useState(["Apple", "Mango","Litchi"]);
 
-  const [newFruit, setNewFruit] = useState("");
+  const [name, setName] = useState("");
 
-  function handleAddFruit() {
-    if(newFruit.trim() !=="") {
-      setFruits([...fruits, newFruit]);
-      setNewFruit("");
+
+  const [submittedName, setSubmittedName] = useState("");
+
+
+  function handleSubmit(event) {
+
+    event.preventDefault();
+    if(name.trim() !== ""){
+    setSubmittedName(name.trim());
+    }
+    else{
+      setSubmittedName("");
     }
   }
 
-  function handleRemoveFruit(fruitRemove) {
-    setFruits(
-      fruits.filter((fruit) =>
-        fruit !== fruitRemove
-      )
-    );
-    
-  }
-
+    function handleClear() {
+      setName("");
+      setSubmittedName("");
+    }
   return (
     <>
-    <h1>My Fruits</h1>
+    <h1>My First Form</h1>
+    <form onSubmit={handleSubmit}>
+      <input 
+      value={name}
+      onChange={(event) => setName(event.target.value)}
+      placeholder="Enter your name"
+      />
+      <button type="submit">Submit</button>
 
-    <input
-    value={newFruit}
-    onChange={(event) => setNewFruit(event.target.value)}
-    placeholder="Enter a fruit..." 
-    />
-    <button onClick={handleAddFruit}>Add Fruit</button>
-   
-   
+      <button type="button" onClick={handleClear}>clear</button>
 
-    {fruits.map((fruit) => (
-      <div key={fruit}>
-        <p>{fruit}</p>
-        <button onClick={() => handleRemoveFruit(fruit)}>Remove</button>
-      </div>
-    ))}
+      {submittedName && <p>Hello, {submittedName}!</p>}
+    </form>
     </>
   );
 }
+
 export default App;
