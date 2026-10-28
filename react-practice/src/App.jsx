@@ -10,20 +10,26 @@ function App() {
   const [submittedName, setSubmittedName] = useState("");
 
 
+  const [error, setError] = useState("");
+
+
   function handleSubmit(event) {
 
     event.preventDefault();
-    if(name.trim() !== ""){
-    setSubmittedName(name.trim());
+    if(name.trim().length < 3){
+      setError("Name must be at least 3 characters.");
+    setSubmittedName("");
     }
     else{
-      setSubmittedName("");
+      setError("");
+      setSubmittedName(name.trim());
     }
   }
 
     function handleClear() {
       setName("");
       setSubmittedName("");
+      setError("");
     }
   return (
     <>
@@ -39,6 +45,8 @@ function App() {
       <button type="button" onClick={handleClear}>clear</button>
 
       {submittedName && <p>Hello, {submittedName}!</p>}
+
+      {error && <p>{error}</p> }
     </form>
     </>
   );
