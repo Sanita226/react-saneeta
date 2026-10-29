@@ -1,53 +1,80 @@
-import { useState } from "react";
+import { useState } from "react"
+
+
+
+function Header() {
+  return <h1>My Learning Website</h1>;
+}
+
+function Course({name, duration ,onRemove}) {
+  return (
+    <>
+    <h2>{name}</h2>
+    <p>Duration: {duration} days</p>
+    <button onClick={() => onRemove(name)}>Remove</button>
+    </>
+  );
+}
+
+function CourseList({title,courses, onRemoveCourse}) {
+  return(
+    <>
+    <h2>{title}</h2>
+    {courses.map((course) =>(
+        
+      <Course
+      key={course.name}
+      name={course.name}
+      duration={course.duration}
+      onRemove={onRemoveCourse}
+      />
+    ))}
+    
+    
+    </>
+  );
+
+}
+
 
 
 
 function App() {
 
-  const [name, setName] = useState("");
+  const [courses, setCourses ] = useState([
+     { name: "React", duration: 30 },
+  { name: "JavaScript", duration: 45 },
+  { name: "HTML", duration: 15 },
 
+  ]);
 
-  const [submittedName, setSubmittedName] = useState("");
+  function handleAddCourses() {
+    setCourses([...courses, { name: "Node.js", duration: 20 }]);
 
-
-  const [error, setError] = useState("");
-
-
-  function handleSubmit(event) {
-
-    event.preventDefault();
-    if(name.trim().length < 3){
-      setError("Name must be at least 3 characters.");
-    setSubmittedName("");
-    }
-    else{
-      setError("");
-      setSubmittedName(name.trim());
-    }
   }
 
-    function handleClear() {
-      setName("");
-      setSubmittedName("");
-      setError("");
-    }
+  function handleRemoveCourse(courseName) {
+    const updatedCourses = courses.filter((course) => course.name !== courseName );
+    setCourses(updatedCourses);
+
+  }
+
+  
+  
+
+
   return (
     <>
-    <h1>My First Form</h1>
-    <form onSubmit={handleSubmit}>
-      <input 
-      value={name}
-      onChange={(event) => setName(event.target.value)}
-      placeholder="Enter your name"
-      />
-      <button type="submit">Submit</button>
+    <Header />
 
-      <button type="button" onClick={handleClear}>clear</button>
-
-      {submittedName && <p>Hello, {submittedName}!</p>}
-
-      {error && <p>{error}</p> }
-    </form>
+    <button onClick={handleAddCourses}>Add Course</button>
+    <CourseList title="My React Courses"
+    courses={courses} 
+    onRemoveCourse={handleRemoveCourse}
+    />
+    {/* <button onClick={handleRemoveCourse}>Remove</button> */}
+   
+   
     </>
   );
 }
