@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Timer from "./Timer";
 
 
 
@@ -41,6 +42,10 @@ function CourseList({title,courses, onRemoveCourse}) {
 
 function App() {
 
+  useEffect(() => {
+    document.title = "My Courses";
+  }, []);
+
   const [courses, setCourses ] = useState([
      { name: "React", duration: 30 },
   { name: "JavaScript", duration: 45 },
@@ -73,6 +78,8 @@ function App() {
     onRemoveCourse={handleRemoveCourse}
     />
     {/* <button onClick={handleRemoveCourse}>Remove</button> */}
+
+    <Timer />
    
    
     </>
